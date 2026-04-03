@@ -3,4 +3,5 @@
 /bot_env
 user_keys.json
 /user_profiles.json
+/__pycache__
 .env

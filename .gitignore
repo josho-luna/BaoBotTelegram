@@ -1,0 +1,6 @@
+/anki_media
+/anki_temp
+/bot_env
+user_keys.json
+/user_profiles.json
+.env

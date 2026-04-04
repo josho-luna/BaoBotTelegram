@@ -38,16 +38,38 @@ def process_and_send(message, contents, status_text, user_lang, user_key, user_v
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     welcome_text = (
-        "🥟 Welcome to BaoBot!\n\n"
-        "I can generate custom Anki flashcards with native audio for multiple languages.\n\n"
-        "1. Get a free Google Gemini API Key in https://aistudio.google.com/app/apikey\n"
-        "2. Send it to me using the command:\n"
-        "\t\t/setkey YOUR_KEY_HERE\n"
-        "3. Optionally you can add your ElevenLabs key for premium audio using:\n\t\t /elevenlabs YOUR_KEY\n or use \n\t/edgetts to use the free edge tts API\n"
-        "4. Use /language to pick your target language or see the available ones!.\n"
-        "\n\nText me a word, phrase, an Image or a prompt like 'list 5 colors'!"
+        "🥟 **Welcome to BaoBot!** 🥟\n\n"
+        "I transform your text, prompts, or images into beautiful Anki flashcard decks with native audio!\n\n"
+        "🚀 **Quick Start:**\n"
+        "1️⃣ Get a free Google Gemini API Key from [Google AI Studio](https://aistudio.google.com/app/apikey)\n"
+        "2️⃣ Set your key using: `/setkey YOUR_API_KEY`\n"
+        "3️⃣ Pick your language with: `/language`\n"
+        "4️⃣ Send me a word, a phrase, a prompt (e.g., '10 animals'), or a photo!\n\n"
+        "Need more settings or want to upgrade your audio? Type /help to see everything I can do."
     )
-    bot.reply_to(message, welcome_text)
+    bot.reply_to(message, welcome_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+@bot.message_handler(commands=['help'])
+def send_help(message):
+    help_text = (
+        "🛠️ **BaoBot Command Guide** 🛠️\n\n"
+        "**Essential Commands:**\n"
+        "🔹 `/start` - Show the quick start guide.\n"
+        "🔹 `/help` - Show this detailed command list.\n"
+        "🔹 `/setkey [YOUR_KEY]` - Save your Gemini API key (Required).\n"
+        "🔹 `/language` - Choose the language you want to learn.\n"
+        "🔹 `/deckname [NAME]` - Set or view your custom Anki deck name.\n\n"
+        "**Audio Options:**\n"
+        "BaoBot uses free Edge TTS by default. For ultra-realistic voices, you can connect ElevenLabs:\n"
+        "🔹 `/elevenlabs [YOUR_KEY]` - Set your ElevenLabs API key and switch to premium audio.\n"
+        "🔹 `/elevenvoice [VOICE_ID]` - Set a specific voice ID for ElevenLabs.\n"
+        "🔹 `/edgetts` - Switch back to the free Edge TTS provider.\n\n"
+        "**How to Create Flashcards:**\n"
+        "Just send me a message! You can send:\n"
+        "📝 **Text:** A single word (`dog`), a phrase (`how are you`), or a request (`give me 5 restaurant phrases`).\n"
+        "📸 **Image:** Send a photo! I'll extract vocabulary from it. You can add a caption to guide me (e.g., 'extract the verbs')."
+    )
+    bot.reply_to(message, help_text, parse_mode="Markdown")
 
 @bot.message_handler(commands=['language'])
 def choose_language(message):

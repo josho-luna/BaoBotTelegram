@@ -1,7 +1,39 @@
 import genanki
 from pydantic import BaseModel
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 MODEL_ID = 1847563921
+
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+DECK_ID = 1938475620
+TEMP_DIR = "anki_temp"
+PROFILES_FILE = "user_profiles.json"
+
+os.makedirs(TEMP_DIR, exist_ok=True)
+
+SUPPORTED_LANGUAGES = {
+    "🇨🇳 Chinese": "zh-CN-XiaoxiaoNeural",
+    "🇯🇵 Japanese": "ja-JP-NanamiNeural",
+    "🇰🇷 Korean": "ko-KR-SunHiNeural",
+    "🇲🇽 Spanish": "es-ES-ElviraNeural",
+    "🇵🇸 Arabic": "ar-SA-ZariyahNeural",
+    "🇫🇷 French": "fr-FR-DeniseNeural",
+    "🇩🇪 German": "de-DE-KatjaNeural"
+}
+
+ELEVENLABS_VOICES = {
+    "🇨🇳 Chinese": "21m00Tcm4TlvDq8ikWAM", 
+    "🇯🇵 Japanese": "21m00Tcm4TlvDq8ikWAM",
+    "🇰🇷 Korean": "21m00Tcm4TlvDq8ikWAM",
+    "🇲🇽 Spanish": "21m00Tcm4TlvDq8ikWAM",
+    "🇵🇸 Arabic": "21m00Tcm4TlvDq8ikWAM",
+    "🇫🇷 French": "21m00Tcm4TlvDq8ikWAM",
+    "🇩🇪 German": "21m00Tcm4TlvDq8ikWAM"
+}
 
 CSS = """
 /* ---------- DARK-MODE SAFE ---------- */
@@ -205,8 +237,13 @@ class FlashcardList(BaseModel):
 def get_prompt(target_words, language):
     return f"""
     Create {language} flashcards for the following words/phrases/request: {target_words}. 
-    - For 'components', provide a brief mnemonic, grammar note, or root breakdown. 
+    - For 'components', provide a root breakdown or character breakdown. 
     - For 'pinyin', provide the standard pronunciation guide (e.g., Pinyin for Chinese, Romaji for Japanese).
     - For 'example_pinyin', do the same for the example sentence.
     Return a list of flashcards.
     """
+
+
+
+
+

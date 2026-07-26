@@ -1,0 +1,8 @@
+aiohttp
+edge-tts
+genanki
+google-genai
+Pillow
+pydantic
+pyTelegramBotAPI
+python-dotenv

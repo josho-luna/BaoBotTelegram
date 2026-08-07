@@ -384,7 +384,11 @@ def normalize_locale(locale):
     return base if base in UI_LOCALES else DEFAULT_LOCALE
 
 
-def translate(locale, key, **values):
-    locale = normalize_locale(locale)
-    template = TRANSLATIONS.get(locale, {}).get(key, TRANSLATIONS[DEFAULT_LOCALE].get(key, key))
+def translate(locale_code, message_key, /, **values):
+    """Translate a message while leaving all keyword names available to templates."""
+    locale_code = normalize_locale(locale_code)
+    template = TRANSLATIONS.get(locale_code, {}).get(
+        message_key,
+        TRANSLATIONS[DEFAULT_LOCALE].get(message_key, message_key),
+    )
     return template.format(**values)

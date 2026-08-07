@@ -22,6 +22,20 @@ class LocaleTests(unittest.TestCase):
         message = translate("es", "language_updated", language="japonés")
         self.assertIn("japonés", message)
 
+    def test_template_value_can_be_named_locale(self):
+        message = translate(
+            "en",
+            "settings",
+            language="German",
+            deck_name="BaoDrop",
+            provider="Edge TTS",
+            gemini_status="configured",
+            eleven_status="not configured",
+            locale="English",
+        )
+
+        self.assertIn("Interface: English", message)
+
     def test_supported_locales_have_complete_catalogs_and_placeholders(self):
         english = TRANSLATIONS["en"]
         formatter = Formatter()
@@ -31,6 +45,7 @@ class LocaleTests(unittest.TestCase):
                 expected = {name for _, name, _, _ in formatter.parse(english[key]) if name}
                 actual = {name for _, name, _, _ in formatter.parse(template) if name}
                 self.assertEqual(actual, expected, f"{locale}.{key}")
+                translate(locale, key, **{name: name for name in actual})
 
 
 if __name__ == "__main__":
